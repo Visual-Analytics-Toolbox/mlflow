@@ -1,0 +1,36 @@
+name: Release Charts
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master # Triggers the pipeline when you merge code or pull upstream updates
+    paths:
+      - 'charts/**' # Only runs if something inside the charts directory changes
+
+jobs:
+  release:
+    permissions:
+      contents: write # Crucial for creating releases
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches history so chart-releaser can compare versions
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      # Runs the official Helm tool to build the index and host it on gh-pages
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: .
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
