@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  mlflow:
+  - apiVersion: v2
+    appVersion: 3.13.0
+    created: "2026-06-12T14:09:32.425309386Z"
+    description: A production-ready Helm chart for deploying MLflow on Kubernetes
+    digest: b32f4a41c8e996053a0b9d64622940610255a48adb607cda261b482f52b8a32b
+    name: mlflow
+    type: application
+    urls:
+    - https://github.com/Visual-Analytics-Toolbox/mlflow/releases/download/mlflow-0.1.0/mlflow-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-06-12T14:09:32.425320216Z"
